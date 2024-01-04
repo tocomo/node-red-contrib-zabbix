@@ -4,11 +4,11 @@ module.exports = function(RED) {
     function zabbixOut(n) {
         RED.nodes.createNode(this,n);
         if (RED.nodes.getNode(n.creds)){
-            this.username = RED.nodes.getNode(n.creds).credentials.user;
+            this.username = RED.nodes.getNode(n.creds).credentials.username;
             this.passwd = RED.nodes.getNode(n.creds).credentials.passwd;
             this.zabbixAPIURL = RED.nodes.getNode(n.creds).credentials.zabbixAPIURL;
         } else {
-            this.user = "";
+            this.username = "";
             this.passwd = "";
             this.zabbixAPIURL = "";
         }
@@ -28,7 +28,7 @@ module.exports = function(RED) {
             }
             var zabbix = new Zabbix({
                 url: node.zabbixAPIURL,
-                user: node.user,
+                username: node.username,
                 password: node.passwd
             });
             var main = async () => {
@@ -49,7 +49,7 @@ module.exports = function(RED) {
     RED.nodes.registerType("zabbix", zabbixOut, {
         credentials: {
             zabbixAPIURL: {type: "text"},
-            user: {type: "text"},
+            username: {type: "text"},
             passwd: {type: "passwd"}
         }
     });
@@ -57,14 +57,14 @@ module.exports = function(RED) {
     function zabbixNode(n){
         RED.nodes.createNode(this, n);
         this.zabbixAPIURL = n.zabbixAPIURL;
-        this.user = n.user;
+        this.username = n.username;
         this.passwd = n.passwd;
     }
 
     RED.nodes.registerType("zabbixNode", zabbixNode, {
         credentials: {
             zabbixAPIURL: {type: "text"},
-            user: {type: "text"},
+            username: {type: "text"},
             passwd: {type: "passwd"}
         }
     });
