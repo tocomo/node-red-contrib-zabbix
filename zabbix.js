@@ -4,7 +4,7 @@ module.exports = function(RED) {
     function zabbixOut(n) {
         RED.nodes.createNode(this,n);
         if (RED.nodes.getNode(n.creds)){
-            this.user = RED.nodes.getNode(n.creds).credentials.user;
+            this.username = RED.nodes.getNode(n.creds).credentials.user;
             this.passwd = RED.nodes.getNode(n.creds).credentials.passwd;
             this.zabbixAPIURL = RED.nodes.getNode(n.creds).credentials.zabbixAPIURL;
         } else {
